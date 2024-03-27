@@ -6,6 +6,7 @@ public class User : NArchitecture.Core.Security.Entities.User<Guid>
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateTime DateOfBirth { get; set; }
+
     public User()
     {
         UserOperationClaims = new HashSet<UserOperationClaim>();
@@ -13,7 +14,18 @@ public class User : NArchitecture.Core.Security.Entities.User<Guid>
         OtpAuthenticators = new HashSet<OtpAuthenticator>();
         EmailAuthenticators = new HashSet<EmailAuthenticator>();
     }
-    public User(Guid id, string userName, string firstName, string lastName, DateTime dateOfBirth, string email, byte[] passwordHash, byte[] passwordSalt) : this()
+
+    public User(
+        Guid id,
+        string userName,
+        string firstName,
+        string lastName,
+        DateTime dateOfBirth,
+        string email,
+        byte[] passwordHash,
+        byte[] passwordSalt
+    )
+        : this()
     {
         Id = id;
         UserName = userName;
@@ -24,6 +36,7 @@ public class User : NArchitecture.Core.Security.Entities.User<Guid>
         PasswordHash = passwordHash;
         PasswordSalt = passwordSalt;
     }
+
     public virtual ICollection<UserOperationClaim> UserOperationClaims { get; set; } = default!;
     public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = default!;
     public virtual ICollection<OtpAuthenticator> OtpAuthenticators { get; set; } = default!;

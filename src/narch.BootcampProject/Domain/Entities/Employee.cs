@@ -5,13 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Entities;
+
 public class Employee : User
 {
     public string Position { get; set; }
-    public Employee()
-    {
-    }
-    public Employee(string position) : this()
+
+    public Employee() { }
+
+    public Employee(string position)
+        : this()
     {
         Position = position;
     }

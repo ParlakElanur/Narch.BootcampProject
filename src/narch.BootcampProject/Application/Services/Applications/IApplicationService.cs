@@ -1,6 +1,6 @@
-using NArchitecture.Core.Persistence.Paging;
-using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.Query;
+using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Services.Applications;
 

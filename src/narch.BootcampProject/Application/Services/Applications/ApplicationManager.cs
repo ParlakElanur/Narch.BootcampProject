@@ -1,8 +1,8 @@
+using System.Linq.Expressions;
 using Application.Features.Applications.Rules;
 using Application.Services.Repositories;
-using NArchitecture.Core.Persistence.Paging;
 using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
+using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Services.Applications;
 
@@ -25,7 +25,13 @@ public class ApplicationManager : IApplicationService
         CancellationToken cancellationToken = default
     )
     {
-        Domain.Entities.Application? application = await _applicationRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
+        Domain.Entities.Application? application = await _applicationRepository.GetAsync(
+            predicate,
+            include,
+            withDeleted,
+            enableTracking,
+            cancellationToken
+        );
         return application;
     }
 
