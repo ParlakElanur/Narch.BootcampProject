@@ -12,7 +12,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.ToTable("Users").HasKey(u => u.Id);
 
         builder.Property(u => u.Id).HasColumnName("Id").IsRequired();
+        builder.Property(u => u.UserName).HasColumnName("UserName").IsRequired();
+        builder.Property(u => u.FirstName).HasColumnName("FirstName").IsRequired();
+        builder.Property(u => u.LastName).HasColumnName("LastName").IsRequired();
         builder.Property(u => u.Email).HasColumnName("Email").IsRequired();
+        builder.Property(u => u.DateOfBirth).HasColumnName("DateOfBirth").IsRequired();
         builder.Property(u => u.PasswordSalt).HasColumnName("PasswordSalt").IsRequired();
         builder.Property(u => u.PasswordHash).HasColumnName("PasswordHash").IsRequired();
         builder.Property(u => u.AuthenticatorType).HasColumnName("AuthenticatorType").IsRequired();
@@ -46,7 +50,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 new()
                 {
                     Id = AdminId,
+                    UserName = "admin",
+                    FirstName = "Elanur",
+                    LastName = "Parlak",
                     Email = "narch@kodlama.io",
+                    DateOfBirth = new DateTime(1996, 10, 28),
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt
                 };
