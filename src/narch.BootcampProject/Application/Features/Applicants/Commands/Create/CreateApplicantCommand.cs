@@ -20,7 +20,6 @@ public class CreateApplicantCommand
         ITransactionalRequest
 {
     public string About { get; set; }
-    public Blacklist Blacklist { get; set; }
 
     public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Create];
 

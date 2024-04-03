@@ -7,5 +7,4 @@ public class GetByIdApplicantResponse : IResponse
 {
     public Guid Id { get; set; }
     public string About { get; set; }
-    public Blacklist Blacklist { get; set; }
 }

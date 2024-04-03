@@ -9,8 +9,5 @@ public class CreateApplicationCommandValidator : AbstractValidator<CreateApplica
         RuleFor(c => c.ApplicantId).NotEmpty();
         RuleFor(c => c.BootcampId).NotEmpty();
         RuleFor(c => c.ApplicationStateId).NotEmpty();
-        RuleFor(c => c.Applicant).NotEmpty();
-        RuleFor(c => c.Bootcamp).NotEmpty();
-        RuleFor(c => c.ApplicationState).NotEmpty();
     }
 }

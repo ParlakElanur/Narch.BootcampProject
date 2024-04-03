@@ -20,12 +20,9 @@ public class UpdateApplicationCommand
         ITransactionalRequest
 {
     public Guid Id { get; set; }
-    public int ApplicantId { get; set; }
+    public Guid ApplicantId { get; set; }
     public int BootcampId { get; set; }
     public int ApplicationStateId { get; set; }
-    public Applicant Applicant { get; set; }
-    public Bootcamp Bootcamp { get; set; }
-    public ApplicationState ApplicationState { get; set; }
 
     public string[] Roles => [Admin, Write, ApplicationsOperationClaims.Update];
 

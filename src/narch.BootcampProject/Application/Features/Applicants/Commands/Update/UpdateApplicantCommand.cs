@@ -21,7 +21,6 @@ public class UpdateApplicantCommand
 {
     public Guid Id { get; set; }
     public string About { get; set; }
-    public Blacklist Blacklist { get; set; }
 
     public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Update];
 

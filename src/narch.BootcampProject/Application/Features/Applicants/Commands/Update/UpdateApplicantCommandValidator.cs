@@ -8,6 +8,5 @@ public class UpdateApplicantCommandValidator : AbstractValidator<UpdateApplicant
     {
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.About).NotEmpty();
-        RuleFor(c => c.Blacklist).NotEmpty();
     }
 }
