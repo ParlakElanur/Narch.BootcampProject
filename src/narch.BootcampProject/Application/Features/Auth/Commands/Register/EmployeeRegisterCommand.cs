@@ -1,17 +1,18 @@
-﻿using Application.Features.Auth.Rules;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Application.Services.Repositories;
 using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Security.Hashing;
 using NArchitecture.Core.Security.JWT;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Auth.Commands.Register;
+
 public class EmployeeRegisterCommand : IRequest<RegisteredResponse>
 {
     public EmployeeForRegisterDto EmployeeForRegisterDto { get; set; }
@@ -28,6 +29,7 @@ public class EmployeeRegisterCommand : IRequest<RegisteredResponse>
         EmployeeForRegisterDto = employeeForRegisterDto;
         IpAddress = ipAddress;
     }
+
     public class RequestCommandHandler : IRequestHandler<EmployeeRegisterCommand, RegisteredResponse>
     {
         private readonly IEmployeeRepository _employeeRepository;
@@ -38,12 +40,13 @@ public class EmployeeRegisterCommand : IRequest<RegisteredResponse>
             IEmployeeRepository employeeRepository,
             IAuthService authService,
             AuthBusinessRules authBusinessRules
-            )
+        )
         {
             _employeeRepository = employeeRepository;
             _authService = authService;
             _authBusinessRules = authBusinessRules;
         }
+
         public async Task<RegisteredResponse> Handle(EmployeeRegisterCommand request, CancellationToken cancellationToken)
         {
             await _authBusinessRules.UserEmailShouldBeNotExists(request.EmployeeForRegisterDto.Email);

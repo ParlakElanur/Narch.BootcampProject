@@ -1,21 +1,23 @@
-﻿using Application.Features.Auth.Rules;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Application.Services.Repositories;
 using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Security.Hashing;
 using NArchitecture.Core.Security.JWT;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Auth.Commands.Register;
+
 public class InstructorRegisterCommand : IRequest<RegisteredResponse>
 {
     public InstructorForRegisterDto InstructorForRegisterDto { get; set; }
     public string IpAddress { get; set; }
+
     public InstructorRegisterCommand()
     {
         InstructorForRegisterDto = null!;
@@ -27,6 +29,7 @@ public class InstructorRegisterCommand : IRequest<RegisteredResponse>
         InstructorForRegisterDto = instructorForRegisterDto;
         IpAddress = ipAddress;
     }
+
     public class RequestCommandHandler : IRequestHandler<InstructorRegisterCommand, RegisteredResponse>
     {
         private readonly IInstructorRepository _instructorRepository;
@@ -37,12 +40,13 @@ public class InstructorRegisterCommand : IRequest<RegisteredResponse>
             IInstructorRepository instructorRepository,
             IAuthService authService,
             AuthBusinessRules authBusinessRules
-            )
+        )
         {
             _instructorRepository = instructorRepository;
             _authService = authService;
             _authBusinessRules = authBusinessRules;
         }
+
         public async Task<RegisteredResponse> Handle(InstructorRegisterCommand request, CancellationToken cancellationToken)
         {
             await _authBusinessRules.UserEmailShouldBeNotExists(request.InstructorForRegisterDto.Email);
@@ -53,17 +57,17 @@ public class InstructorRegisterCommand : IRequest<RegisteredResponse>
                 passwordSalt: out byte[] passwordSalt
             );
             Instructor newInstructor =
-               new()
-               {
-                   UserName = request.InstructorForRegisterDto.UserName,
-                   FirstName = request.InstructorForRegisterDto.FirstName,
-                   LastName = request.InstructorForRegisterDto.LastName,
-                   DateOfBirth = request.InstructorForRegisterDto.DateOfBirth,
-                   Email = request.InstructorForRegisterDto.Email,
-                   CompanyName = request.InstructorForRegisterDto.CompanyName,
-                   PasswordHash = passwordHash,
-                   PasswordSalt = passwordSalt,
-               };
+                new()
+                {
+                    UserName = request.InstructorForRegisterDto.UserName,
+                    FirstName = request.InstructorForRegisterDto.FirstName,
+                    LastName = request.InstructorForRegisterDto.LastName,
+                    DateOfBirth = request.InstructorForRegisterDto.DateOfBirth,
+                    Email = request.InstructorForRegisterDto.Email,
+                    CompanyName = request.InstructorForRegisterDto.CompanyName,
+                    PasswordHash = passwordHash,
+                    PasswordSalt = passwordSalt,
+                };
             Instructor createdInstructor = await _instructorRepository.AddAsync(newInstructor);
 
             AccessToken createdAccessToken = await _authService.CreateAccessToken(createdInstructor);

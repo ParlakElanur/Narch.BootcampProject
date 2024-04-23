@@ -47,26 +47,32 @@ public class AuthController : BaseController
         setRefreshTokenToCookie(result.RefreshToken);
         return Created(uri: "", result.AccessToken);
     }
+
     [HttpPost("RegisterApplicant")]
     public async Task<IActionResult> Register([FromBody] ApplicantForRegisterDto applicantForRegisterDto)
     {
-        ApplicantRegisterCommand applicantRegisterCommand = new() { ApplicantForRegisterDto = applicantForRegisterDto, IpAddress = getIpAddress() };
+        ApplicantRegisterCommand applicantRegisterCommand =
+            new() { ApplicantForRegisterDto = applicantForRegisterDto, IpAddress = getIpAddress() };
         RegisteredResponse result = await Mediator.Send(applicantRegisterCommand);
         setRefreshTokenToCookie(result.RefreshToken);
         return Created(uri: "", result.AccessToken);
     }
+
     [HttpPost("RegisterEmployee")]
     public async Task<IActionResult> Register([FromBody] EmployeeForRegisterDto employeeForRegisterDto)
     {
-        EmployeeRegisterCommand employeeRegisterCommand = new() { EmployeeForRegisterDto = employeeForRegisterDto, IpAddress = getIpAddress() };
+        EmployeeRegisterCommand employeeRegisterCommand =
+            new() { EmployeeForRegisterDto = employeeForRegisterDto, IpAddress = getIpAddress() };
         RegisteredResponse result = await Mediator.Send(employeeRegisterCommand);
         setRefreshTokenToCookie(result.RefreshToken);
         return Created(uri: "", result.AccessToken);
     }
+
     [HttpPost("RegisterInstructor")]
     public async Task<IActionResult> Register([FromBody] InstructorForRegisterDto instructorForRegisterDto)
     {
-        InstructorRegisterCommand instructorRegisterCommand = new() { InstructorForRegisterDto = instructorForRegisterDto, IpAddress = getIpAddress() };
+        InstructorRegisterCommand instructorRegisterCommand =
+            new() { InstructorForRegisterDto = instructorForRegisterDto, IpAddress = getIpAddress() };
         RegisteredResponse result = await Mediator.Send(instructorRegisterCommand);
         setRefreshTokenToCookie(result.RefreshToken);
         return Created(uri: "", result.AccessToken);

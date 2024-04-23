@@ -1,17 +1,18 @@
-﻿using Application.Features.Auth.Rules;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Application.Services.Repositories;
 using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Security.Hashing;
 using NArchitecture.Core.Security.JWT;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Auth.Commands.Register;
+
 public class ApplicantRegisterCommand : IRequest<RegisteredResponse>
 {
     public ApplicantForRegisterDto ApplicantForRegisterDto { get; set; }
@@ -22,11 +23,13 @@ public class ApplicantRegisterCommand : IRequest<RegisteredResponse>
         ApplicantForRegisterDto = null!;
         IpAddress = string.Empty;
     }
+
     public ApplicantRegisterCommand(ApplicantForRegisterDto applicantForRegisterDto, string ipAddress)
     {
         ApplicantForRegisterDto = applicantForRegisterDto;
         IpAddress = ipAddress;
     }
+
     public class RequestCommandHandler : IRequestHandler<ApplicantRegisterCommand, RegisteredResponse>
     {
         private readonly IApplicantRepository _applicantRepository;
@@ -37,12 +40,13 @@ public class ApplicantRegisterCommand : IRequest<RegisteredResponse>
             IApplicantRepository applicantRepository,
             IAuthService authService,
             AuthBusinessRules authBusinessRules
-            )
+        )
         {
             _applicantRepository = applicantRepository;
             _authService = authService;
             _authBusinessRules = authBusinessRules;
         }
+
         public async Task<RegisteredResponse> Handle(ApplicantRegisterCommand request, CancellationToken cancellationToken)
         {
             await _authBusinessRules.UserEmailShouldBeNotExists(request.ApplicantForRegisterDto.Email);

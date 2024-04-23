@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Features.Auth.Commands.Register;
+
 public class EmployeeForRegisterDto
 {
     public string UserName { get; set; }
